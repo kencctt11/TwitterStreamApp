@@ -10,9 +10,12 @@ namespace Tests
         {
             TwitterStream.Process process = new TwitterStream.Process();
             process.ProccesTags("This is a test tweet. #Test");
-            Assert.IsTrue(process.totaltweets ==1);
-            Assert.IsTrue(process.popularcount==1);
-            Assert.IsTrue(process.Tags.Count==1);   
+            process.ProccesTags("This is a test tweet. #Test");
+            process.ProccesTags("This is a test tweet. #Test2");
+            Assert.IsTrue(process.totaltweets ==3);
+            Assert.IsTrue(process.popularcount==2);
+            Assert.IsTrue(process.Tags.Count==3);
+            Assert.IsTrue(process.populartag == "#Test");
         }
     }
 }

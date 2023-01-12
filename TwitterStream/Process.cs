@@ -9,7 +9,7 @@ namespace TwitterStream
     public class Process
     {
         //put your bearer token here
-        public string BearerToken { get; set; } = "@YOUR BEARER TOKEN HERE";
+        public string BearerToken { get; set; } = "AAAAAAAAAAAAAAAAAAAAAJ2SlAEAAAAAOqv%2FiKFZwxLcVLU3D5W%2FQYXqFGk%3D75cjh4pi2MCAFwfJxByugk79NE7K3x9Qou2prPZ493VfmvisDY";
         public int totaltweets { get; set; }
         public int popularcount { get; set; } = 0;
         public string populartag { get; set; }
