@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace TwitterStream
 {
-    internal class Process
+    public class Process
     {
         //put your bearer token here
-        public string BearerToken { get; set; } = "AAAAAAAAAAAAAAAAAAAAAJ2SlAEAAAAAOqv%2FiKFZwxLcVLU3D5W%2FQYXqFGk%3D75cjh4pi2MCAFwfJxByugk79NE7K3x9Qou2prPZ493VfmvisDY";
+        public string BearerToken { get; set; } = "$YOUR BEARER TOKEN HERE";
         public int totaltweets { get; set; }
         public int popularcount { get; set; } = 0;
-        public string hashtags { get; set; }
+        public string populartag { get; set; }
         public List<string> Tags { get; set; } = new List<string>();
 
         //processes the tweets to find hashtags and count them. 
@@ -43,7 +43,7 @@ namespace TwitterStream
                     if (x.Count > popularcount)
                     {
                         popularcount = x.Count;
-                        hashtags = x.Value;
+                        populartag = x.Value;
                     }
                 }
             }
