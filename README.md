@@ -1,5 +1,5 @@
 # TwitterStreamApp
-This small demo show how to stream the Twitter 1% Volume Stream
+This small demo shows how to stream the Twitter 1% Volume Stream
 
 This demo is written in C#.
 
