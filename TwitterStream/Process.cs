@@ -9,7 +9,7 @@ namespace TwitterStream
     public class Process
     {
         //put your bearer token here
-        public string BearerToken { get; set; } = "AAAAAAAAAAAAAAAAAAAAAJ2SlAEAAAAAOqv%2FiKFZwxLcVLU3D5W%2FQYXqFGk%3D75cjh4pi2MCAFwfJxByugk79NE7K3x9Qou2prPZ493VfmvisDY";
+        public string BearerToken { get; set; } = "$YOUR BEARER TOKEN HERE";
         public int totaltweets { get; set; }
         public int popularcount { get; set; } = 0;
         public string populartag { get; set; }
@@ -33,18 +33,18 @@ namespace TwitterStream
             if (Tags != null)
             {
                 //find most popular hashtag
-                var q = from x in Tags
-                        group x by x into g
-                        let count = g.Count()
+                var query = from hashmark in Tags
+                        group hashmark by hashmark into hashkey
+                        let count = hashkey.Count()
                         orderby count descending
-                        select new { Value = g.Key, Count = count };
-                foreach (var x in q)
+                        select new { Value = hashkey.Key, Count = count };
+                foreach (var hashmark in query)
                 {
                     //if hashtag has higher count then it becomes most popular
-                    if (x.Count > popularcount)
+                    if (hashmark.Count > popularcount)
                     {
-                        popularcount = x.Count;
-                        populartag = x.Value;
+                        popularcount = hashmark.Count;
+                        populartag = hashmark.Value;
                     }
                 }
             }
