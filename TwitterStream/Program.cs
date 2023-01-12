@@ -3,6 +3,7 @@ using System;
 using Tweetinvi;
 using Tweetinvi.Models;
 using TwitterStream;
+using Tweetinvi.Exceptions;
 
 internal class Program
 {
@@ -21,13 +22,26 @@ internal class Program
         sampleStreamV2.TweetReceived += (sender, args) =>
         {
             Console.WriteLine(args.Tweet.Text);
-            ++process.totaltweets;
             process.ProccesTags(args.Tweet.Text);
             Console.WriteLine(process.totaltweets.ToString());
         };
 
         //start the stream and call the TweetRecieved event
-
-        await sampleStreamV2.StartAsync();   
+        try
+        {
+            await sampleStreamV2.StartAsync();
+        }
+        catch (TwitterException e)
+        {
+            Console.WriteLine("Please check your Bearer Token");
+        }
+        catch (TwitterAuthException e)
+        {
+            Console.WriteLine("Please check your Bearer Token");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Please check your Bearer Token");
+        }
     }
 }
