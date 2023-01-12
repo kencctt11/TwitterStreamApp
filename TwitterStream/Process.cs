@@ -9,7 +9,7 @@ namespace TwitterStream
     public class Process
     {
         //put your bearer token here
-        public string BearerToken { get; set; } = "$YOUR BEARER TOKEN HERE";
+        public string BearerToken { get; set; } = "@YOUR BEARER TOKEN HERE";
         public int totaltweets { get; set; }
         public int popularcount { get; set; } = 0;
         public string populartag { get; set; }
@@ -23,6 +23,7 @@ namespace TwitterStream
         {
             int start;
             string sub = "";
+            ++totaltweets;
            if(tweet.Contains('#'))
             {
                 start = tweet.IndexOf('#');
