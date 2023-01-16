@@ -5,7 +5,11 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitterStream", "TwitterStream\TwitterStream.csproj", "{08E86E1C-FB8A-4EF7-8C96-757959A9096D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{D05FB50F-704C-4899-AE1E-952741858B44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{D05FB50F-704C-4899-AE1E-952741858B44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterStreamBlazor", "TwitterStreamBlazor\TwitterStreamBlazor.csproj", "{E3D0B327-049A-4032-8EF0-75F247CD7C63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterStreamAcces", "TwitterStreamAcces\TwitterStreamAcces.csproj", "{5E46384B-D169-4E59-B74F-E8D4E396946A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{D05FB50F-704C-4899-AE1E-952741858B44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D05FB50F-704C-4899-AE1E-952741858B44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D05FB50F-704C-4899-AE1E-952741858B44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3D0B327-049A-4032-8EF0-75F247CD7C63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3D0B327-049A-4032-8EF0-75F247CD7C63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3D0B327-049A-4032-8EF0-75F247CD7C63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3D0B327-049A-4032-8EF0-75F247CD7C63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E46384B-D169-4E59-B74F-E8D4E396946A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E46384B-D169-4E59-B74F-E8D4E396946A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E46384B-D169-4E59-B74F-E8D4E396946A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E46384B-D169-4E59-B74F-E8D4E396946A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

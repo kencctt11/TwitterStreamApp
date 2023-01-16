@@ -1,6 +1,15 @@
 # TwitterStreamApp
-This small demo shows how to stream the Twitter 1% Volume Stream
+Twitter 1% Volume Stream
 
-This demo is written in C#.
+This app shows a sample of the current Twitter Real Time Tweet Stream. 
+The app counts the number of tweet streams captured.
+The app displays the current most popular hashtag subject.
+It also diplays the number of tweets with that popular same hastag.
 
-User need to get a Bearer Token from Twiiter and change the BearerToken string in Process.cs
+# For Developers
+Set the TwitterStreamBlazor project as the startup and run from there.
+the solution containes projects for tests, models, and access to aid in further develpment of the app.
+
+You must obatain a Bearer Token and add an appsettings.json file with the following:
+ "BearerToken": "$YOUR BEARER TOKEN HERE"
+

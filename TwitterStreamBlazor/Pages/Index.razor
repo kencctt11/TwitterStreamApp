@@ -1,0 +1,154 @@
+﻿@page "/"
+@using Tweetinvi.Models;
+@using Tweetinvi;
+@using TwitterStreamAcces;
+@using TwitterStreamAcces.Models;
+
+@inject IConfiguration _config
+@inject IGetStream _streamdata
+@inject ILogger<Index> logger
+
+<PageTitle>Index</PageTitle>
+
+<style>
+    textarea {
+        overflow-y: scroll;
+        height: 100px;
+    }
+</style>
+
+<div class="bg-light p-3">
+    <div class="text-center fs-4"> 
+        Twitter Tweets Services
+    </div>
+    <div>
+        <div class="text-center fs-5 m-2">
+             Current Sample Tweet
+        </div>
+        <div class="text-center m-2">
+             @tweetmodel.TweetText
+        </div>
+        <hr />
+        <div class="text-center">
+            Most Popular Tag Right Now
+        </div>
+        <div class="text-center">
+            @tweetmodel.populartag
+        </div>
+        <hr />
+        <div class="text-center">
+            Number Tweets About Popular Tag
+        </div>
+        <div class="text-center">
+            @tweetmodel.popularcount.ToString()
+        </div>
+        <hr />
+        <div class="text-center fs-5">
+            Total Tweets Streamed: @tweetmodel.totaltweets.ToString()
+        </div>
+        <div class="text-center mt-3">
+            <button class="btn btn-primary" @onclick="Start_Click">Start Stream</button>
+        </div>
+        <div class="text-center text-danger mt-3">
+            @msg
+        </div>
+    </div>
+</div>
+
+@code{
+    private List<TweetModel> tweetlist = new();
+    private TweetModel tweetmodel = new();
+    private bool stop = false;
+    private string msg = ""; 
+
+    protected override async Task OnInitializedAsync()
+    {
+        //add startup code here if needed
+    }
+
+    private async Task Start_Click()
+    {
+        await StartStream();
+    }
+
+    private async Task StartStream()
+    {
+        await Connect();
+
+    }
+
+    public async Task Connect()
+    {
+        msg = "";
+        var appCredentials = new ConsumerOnlyCredentials("", "")
+            {
+                BearerToken = _config["BearerToken"]
+            };
+
+        var appClient = new TwitterClient(appCredentials);
+        var sampleStreamV2 = appClient.StreamsV2.CreateSampleStream();
+
+        sampleStreamV2.TweetReceived += (sender, args) =>
+        {
+            tweetmodel.TweetText = args.Tweet.Text;
+            tweetlist.Add(tweetmodel);
+            if (tweetlist.Count > 100 || stop == true)
+            {
+                //now proccess the list
+                foreach (var item in tweetlist)
+                {
+                    ProccesTags(item.TweetText);
+                }
+                tweetlist.Clear();
+            }
+
+        };
+
+        //start the stream and call the TweetRecieved event
+        try
+        {
+            await sampleStreamV2.StartAsync();
+        }
+        catch(Exception ex)
+        {
+            msg = "I could not connect. Please Check your Bearer Token";
+            logger.LogError(ex.Message);
+        }
+    }
+
+    public async Task ProccesTags(string tweet)
+    {
+        int start;
+        string sub = "";
+        ++tweetmodel.totaltweets;
+        if (tweet.Contains('#'))
+        {
+            start = tweet.IndexOf('#');
+            sub = tweet.Substring(start);
+            tweetmodel.Tags.Add(sub);
+        }
+        if (tweetmodel.Tags != null)
+        {
+            //find most popular hashtag
+            var query = from hashmark in tweetmodel.Tags
+                        group hashmark by hashmark into hashkey
+                        let count = hashkey.Count()
+                        orderby count descending
+                        select new { Value = hashkey.Key, Count = count };
+            foreach (var hashmark in query)
+            {
+                //if hashtag has higher count then it becomes most popular
+                if (hashmark.Count > tweetmodel.popularcount)
+                {
+                    tweetmodel.popularcount = hashmark.Count;
+                    tweetmodel.populartag = hashmark.Value;
+                }
+            }
+        }
+        await InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });
+    }
+}
+
